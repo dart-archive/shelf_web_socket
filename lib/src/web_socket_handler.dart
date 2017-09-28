@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
-import 'package:stream_channel/stream_channel.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 /// A class that exposes a handler for upgrading WebSocket requests.
@@ -66,7 +65,7 @@ class WebSocketHandler {
 
     var protocol = _chooseProtocol(request);
     request.hijack((untypedChannel) {
-      var channel = (untypedChannel as StreamChannel).cast<List<int>>();
+      var channel = untypedChannel.cast<List<int>>();
 
       var sink = UTF8.encoder.startChunkedConversion(channel.sink);
       sink.add(
