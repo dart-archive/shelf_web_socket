@@ -64,9 +64,7 @@ class WebSocketHandler {
     }
 
     var protocol = _chooseProtocol(request);
-    request.hijack((typedChannel) {
-      var channel = typedChannel.cast<List<int>>();
-
+    request.hijack((channel) {
       var sink = UTF8.encoder.startChunkedConversion(channel.sink);
       sink.add(
           "HTTP/1.1 101 Switching Protocols\r\n"
