@@ -64,8 +64,8 @@ class WebSocketHandler {
     }
 
     var protocol = _chooseProtocol(request);
-    request.hijack((untypedChannel) {
-      var channel = untypedChannel.cast<List<int>>();
+    request.hijack((typedChannel) {
+      var channel = typedChannel.cast<List<int>>();
 
       var sink = UTF8.encoder.startChunkedConversion(channel.sink);
       sink.add(
