@@ -38,7 +38,9 @@ typedef _BinaryFunction = void Function(Null, Null);
 ///
 /// [origin considerations]: https://tools.ietf.org/html/rfc6455#section-10.2
 Handler webSocketHandler(Function onConnection,
-    {Iterable<String> protocols, Iterable<String> allowedOrigins, Duration pingInterval}) {
+    {Iterable<String> protocols,
+    Iterable<String> allowedOrigins,
+    Duration pingInterval}) {
   if (protocols != null) protocols = protocols.toSet();
   if (allowedOrigins != null) {
     allowedOrigins =
@@ -55,5 +57,7 @@ Handler webSocketHandler(Function onConnection,
     onConnection = (webSocket, _) => innerOnConnection(webSocket);
   }
 
-  return new WebSocketHandler(onConnection, protocols, allowedOrigins, pingInterval).handle;
+  return new WebSocketHandler(
+          onConnection, protocols, allowedOrigins, pingInterval)
+      .handle;
 }
