@@ -1,3 +1,8 @@
+## 0.2.2+5
+
+* Remove unused dependency on `stream_channel` to prevent over constrained pub
+  solves.
+
 ## 0.2.2+4
 
 * Fix the check for `onConnection` to check the number of arguments  and not
