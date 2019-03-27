@@ -1,7 +1,6 @@
 ## 0.2.2+5
 
-* Remove unused dependency on `stream_channel` to prevent over constrained pub
-  solves.
+* Allow `stream_channel` version 2.x
 
 ## 0.2.2+4
 
