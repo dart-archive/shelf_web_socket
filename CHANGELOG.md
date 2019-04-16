@@ -1,3 +1,8 @@
+## 0.2.3
+
+* Add `pingInterval` argument to `webSocketHandler`, to be passed through
+  to the created channel.
+
 ## 0.2.2+4
 
 * Fix the check for `onConnection` to check the number of arguments  and not
