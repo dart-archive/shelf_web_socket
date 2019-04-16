@@ -38,7 +38,7 @@ typedef _BinaryFunction = void Function(Null, Null);
 ///
 /// [origin considerations]: https://tools.ietf.org/html/rfc6455#section-10.2
 ///
-/// If [pingInterval] is specified, it will get passed to the created 
+/// If [pingInterval] is specified, it will get passed to the created
 /// channel instance, enabling round-trip disconnect detection.
 /// See [WebSocketChannel] for more details.
 Handler webSocketHandler(Function onConnection,
