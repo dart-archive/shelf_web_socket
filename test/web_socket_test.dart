@@ -117,7 +117,7 @@ void main() {
       webSocket.sink.close();
     }), 'localhost', 0);
 
-    var url = Uri.https('localhost:${server.port}', '');
+    var url = Uri.http('localhost:${server.port}', '');
     var headers = _handshakeHeaders;
     headers['Connection'] = 'Other-Token, Upgrade';
     expect(http.get(url, headers: headers).whenComplete(server.close),
