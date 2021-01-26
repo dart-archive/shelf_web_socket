@@ -94,6 +94,7 @@ class WebSocketHandler {
   String _chooseProtocol(Request request) {
     var protocols = request.headers['Sec-WebSocket-Protocol'];
     if (protocols == null) return null;
+    if (_protocols == null) return null;
     for (var protocol in protocols.split(',')) {
       protocol = protocol.trim();
       if (_protocols.contains(protocol)) return protocol;
