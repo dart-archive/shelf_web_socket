@@ -67,6 +67,22 @@ void main() {
     }
   });
 
+  test('handles protocol header without allowed protocols', () async {
+    var server = await shelf_io.serve(webSocketHandler((webSocket) {
+      webSocket.sink.close();
+    }), 'localhost', 0);
+
+    try {
+      var webSocket = await WebSocket.connect('ws://localhost:${server.port}',
+          protocols: ['one', 'two', 'three']);
+      // TODO figure out what should happen if handler didn't specific
+      // protocols.
+      return webSocket.close();
+    } finally {
+      await server.close();
+    }
+  }, skip: 'https://github.com/dart-lang/shelf_web_socket/issues/27');
+
   group('with a set of allowed origins', () {
     HttpServer server;
     Uri url;
