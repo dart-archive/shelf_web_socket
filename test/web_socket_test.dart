@@ -82,6 +82,22 @@ void main() {
     }
   });
 
+  test('allows two argument callbacks without protocols', () async {
+    var server = await shelf_io.serve(webSocketHandler((webSocket, protocol) {
+      expect(protocol, isNull);
+      webSocket.sink.close();
+    }), 'localhost', 0);
+
+    try {
+      var webSocket = await WebSocket.connect('ws://localhost:${server.port}',
+          protocols: ['one', 'two', 'three']);
+      expect(webSocket.protocol, isNull);
+      return webSocket.close();
+    } finally {
+      await server.close();
+    }
+  });
+
   group('with a set of allowed origins', () {
     HttpServer server;
     Uri url;
@@ -184,11 +200,6 @@ void main() {
       headers.remove('Sec-WebSocket-Key');
       expect(http.get(url, headers: headers), hasStatus(400));
     });
-  });
-
-  test('throws an error if a unary function is provided with protocols', () {
-    expect(() => webSocketHandler((_) => null, protocols: ['foo']),
-        throwsArgumentError);
   });
 }
 

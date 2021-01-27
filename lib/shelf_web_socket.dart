@@ -46,11 +46,6 @@ Handler webSocketHandler(Function onConnection,
     Iterable<String> allowedOrigins,
     Duration pingInterval}) {
   if (onConnection is! _BinaryFunction) {
-    if (protocols != null) {
-      throw ArgumentError('If protocols is non-null, onConnection must '
-          'take two arguments, the WebSocket and the protocol.');
-    }
-
     var innerOnConnection = onConnection;
     onConnection = (webSocket, _) => innerOnConnection(webSocket);
   }
