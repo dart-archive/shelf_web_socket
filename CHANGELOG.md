@@ -1,5 +1,6 @@
-## 0.2.4-dev
+## 0.2.4
 
+* Support the latest shelf release (`1.x.x`).
 * Allow omitting `protocols` argument even if the `onConnection` callback takes
   a second argument.
 
