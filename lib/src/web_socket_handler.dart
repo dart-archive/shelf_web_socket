@@ -10,16 +10,16 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 /// A class that exposes a handler for upgrading WebSocket requests.
 class WebSocketHandler {
   /// The function to call when a request is upgraded.
-  final Function _onConnection;
+  final Function? _onConnection;
 
   /// The set of protocols the user supports, or `null`.
-  final Set<String> _protocols;
+  final Set<String>? _protocols;
 
   /// The set of allowed browser origin connections, or `null`..
-  final Set<String> _allowedOrigins;
+  final Set<String>? _allowedOrigins;
 
   /// The ping interval used for verifying connection, or `null`.
-  final Duration _pingInterval;
+  final Duration? _pingInterval;
 
   WebSocketHandler(this._onConnection, this._protocols, this._allowedOrigins,
       this._pingInterval);
@@ -64,7 +64,7 @@ class WebSocketHandler {
     final origin = request.headers['Origin'];
     if (origin != null &&
         _allowedOrigins != null &&
-        !_allowedOrigins.contains(origin.toLowerCase())) {
+        _allowedOrigins?.contains(origin.toLowerCase()) == false) {
       return _forbidden('invalid origin "$origin".');
     }
 
@@ -78,26 +78,26 @@ class WebSocketHandler {
       if (protocol != null) sink.add('Sec-WebSocket-Protocol: $protocol\r\n');
       sink.add('\r\n');
 
-      _onConnection(
+      _onConnection?.call(
           WebSocketChannel(channel, pingInterval: _pingInterval), protocol);
     });
 
     // [request.hijack] is guaranteed to throw a [HijackException], so we'll
     // never get here.
     assert(false);
-    return null;
+    throw const HijackException();
   }
 
   /// Selects a subprotocol to use for the given connection.
   ///
   /// If no matching protocol can be found, returns `null`.
-  String _chooseProtocol(Request request) {
+  String? _chooseProtocol(Request request) {
     final requestProtocols = request.headers['Sec-WebSocket-Protocol'];
     if (requestProtocols == null) return null;
     if (_protocols == null) return null;
     for (var requestProtocol in requestProtocols.split(',')) {
       requestProtocol = requestProtocol.trim();
-      if (_protocols.contains(requestProtocol)) return requestProtocol;
+      if (_protocols?.contains(requestProtocol) == true) return requestProtocol;
     }
     return null;
   }
