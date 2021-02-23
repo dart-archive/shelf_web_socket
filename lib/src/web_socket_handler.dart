@@ -10,7 +10,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 /// A class that exposes a handler for upgrading WebSocket requests.
 class WebSocketHandler {
   /// The function to call when a request is upgraded.
-  final Function? _onConnection;
+  final Function _onConnection;
 
   /// The set of protocols the user supports, or `null`.
   final Set<String>? _protocols;
@@ -78,7 +78,7 @@ class WebSocketHandler {
       if (protocol != null) sink.add('Sec-WebSocket-Protocol: $protocol\r\n');
       sink.add('\r\n');
 
-      _onConnection?.call(
+      _onConnection.call(
           WebSocketChannel(channel, pingInterval: _pingInterval), protocol);
     });
 
