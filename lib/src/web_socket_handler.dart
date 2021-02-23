@@ -78,7 +78,7 @@ class WebSocketHandler {
       if (protocol != null) sink.add('Sec-WebSocket-Protocol: $protocol\r\n');
       sink.add('\r\n');
 
-      _onConnection.call(
+      _onConnection(
           WebSocketChannel(channel, pingInterval: _pingInterval), protocol);
     });
 
