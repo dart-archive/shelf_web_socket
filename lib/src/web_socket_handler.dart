@@ -64,7 +64,7 @@ class WebSocketHandler {
     final origin = request.headers['Origin'];
     if (origin != null &&
         _allowedOrigins != null &&
-        _allowedOrigins?.contains(origin.toLowerCase()) == false) {
+        !_allowedOrigins!.contains(origin.toLowerCase())) {
       return _forbidden('invalid origin "$origin".');
     }
 
