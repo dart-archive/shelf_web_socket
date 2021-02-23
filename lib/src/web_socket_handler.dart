@@ -85,7 +85,7 @@ class WebSocketHandler {
     // [request.hijack] is guaranteed to throw a [HijackException], so we'll
     // never get here.
     assert(false);
-    throw const HijackException();
+    throw StateError('unreachable');
   }
 
   /// Selects a subprotocol to use for the given connection.
@@ -97,7 +97,7 @@ class WebSocketHandler {
     if (_protocols == null) return null;
     for (var requestProtocol in requestProtocols.split(',')) {
       requestProtocol = requestProtocol.trim();
-      if (_protocols?.contains(requestProtocol) == true) return requestProtocol;
+      if (_protocols!.contains(requestProtocol)) return requestProtocol;
     }
     return null;
   }
